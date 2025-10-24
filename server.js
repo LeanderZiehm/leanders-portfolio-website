@@ -17,7 +17,7 @@ const {
 app.use(express.static('public'));
 
 app.use(session({
-  secret: SESSION_SECRET,
+  secret: "super-secret",
   resave: false,
   saveUninitialized: false,
 }));
